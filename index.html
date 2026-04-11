@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Free football tactics board for coaches and enthusiasts. Drag players, set formations, share with your team.">
+  <meta name="theme-color" content="#1a472a">
+  <title>Football Tactics Board</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+  <header>
+    <h1>Football Tactics Board</h1>
+    <p class="subtitle">Drag players to position them. Use controls below to change formations.</p>
+  </header>
+
+  <main>
+    <div id="canvas-container">
+      <canvas id="pitch"></canvas>
+    </div>
+
+    <div id="controls">
+      <!-- Team Controls Row -->
+      <div class="controls-row teams-row">
+        <!-- Home Team -->
+        <div class="team-controls home-team">
+          <h3>Home</h3>
+          <div class="control-group">
+            <label for="home-players">Outfield: <span id="home-players-val">10</span></label>
+            <input type="range" id="home-players" min="4" max="10" value="10" step="1">
+          </div>
+          <div class="control-group">
+            <label for="home-formation">Formation</label>
+            <select id="home-formation"></select>
+          </div>
+        </div>
+
+        <!-- Match Info -->
+        <div class="match-info">
+          <span id="match-format">11 vs 11</span>
+        </div>
+
+        <!-- Away Team -->
+        <div class="team-controls away-team">
+          <h3>Away</h3>
+          <div class="control-group">
+            <label for="away-players">Outfield: <span id="away-players-val">10</span></label>
+            <input type="range" id="away-players" min="4" max="10" value="10" step="1">
+          </div>
+          <div class="control-group">
+            <label for="away-formation">Formation</label>
+            <select id="away-formation"></select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Actions Row -->
+      <div class="controls-row actions-row">
+        <button id="btn-reset" title="Reset to formation positions">Reset Positions</button>
+        <button id="btn-swap" title="Swap team sides">Swap Sides</button>
+        <button id="btn-names-toggle" title="Show/hide player names">Names: Off</button>
+        <button id="btn-roster" title="Edit player names">Edit Roster</button>
+      </div>
+
+      <!-- Save/Export Row -->
+      <div class="controls-row save-row">
+        <input type="text" id="save-name" placeholder="Setup name..." maxlength="40">
+        <button id="btn-save" title="Save current setup">Save</button>
+        <select id="load-select">
+          <option value="">Load setup...</option>
+        </select>
+        <button id="btn-delete-save" title="Delete selected setup">Delete</button>
+        <button id="btn-export" title="Export as PNG image">Export PNG</button>
+        <button id="btn-share" title="Share image">Share</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Roster Modal -->
+  <div id="roster-modal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Edit Roster</h2>
+        <button id="btn-close-roster" class="btn-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="roster-columns">
+          <div class="roster-column">
+            <h3 class="home-color">Home Team</h3>
+            <div id="home-roster-list"></div>
+          </div>
+          <div class="roster-column">
+            <h3 class="away-color">Away Team</h3>
+            <div id="away-roster-list"></div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="btn-save-roster">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/constants.js"></script>
+  <script src="js/field.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/formations.js"></script>
+  <script src="js/drag.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js').catch(function () {});
+    }
+  </script>
+</body>
+</html>
